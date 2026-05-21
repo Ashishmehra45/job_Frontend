@@ -7,7 +7,7 @@ import axios from "axios";
 import TableFooter from "../Tables/TableFooter";
 import useTable from "../../../hooks/useTable";
 import SpinnerComponent from "../../UI/SpinnerComponent";
-import Config from "../../../config/Config.json";
+// import Config from "../../../config/Config.json";
 import classes from "./ManageTab.module.css";
 import JobItem from "./JobItem";
 import API_URL from "../../../config/config"

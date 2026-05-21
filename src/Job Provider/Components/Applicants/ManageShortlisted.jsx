@@ -8,7 +8,7 @@ import useTable from "../Hooks/useTable";
 import SpinnerComponent from "../../../components/UI/SpinnerComponent";
 import classes from "./ApplicantTab.module.css";
 import ManageShortlistItem from "./ManageShortlistItem";
-import Config from "../../../config/Config.json";
+// import Config from "../../../config/Config.json";
 import API_URL from "../../../config/config"
 let shortlistsdata = [];
 
