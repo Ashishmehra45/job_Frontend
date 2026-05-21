@@ -3,6 +3,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { Form, Button, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Header from "./Header";
 import classes from "./Register.module.css";
@@ -14,6 +15,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
 
   const [errors, setErrors] = useState({});
 
@@ -61,6 +63,7 @@ const Login = () => {
             data: token,
           });
 
+          navigate("/dashboard");
           console.log("Login Successful ✅");
         })
         .catch((err) => {
