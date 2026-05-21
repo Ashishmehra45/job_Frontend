@@ -7,38 +7,42 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { CSVLink } from "react-csv";
 import classes from "./Content1.module.css";
 
-// import reportsData from "./Reports_data_new.json";
-
-//date filtering
+// Date filtering
 const dateFilterParams = {
   comparator: function (filterLocalDateAtMidnight, cellValue) {
-    var dateAsString = cellValue;
-    if (dateAsString == null) return -1;
-    var dateParts = dateAsString.split("-");
-    var cellDate = new Date(
+    if (cellValue == null) return -1;
+
+    const dateParts = cellValue.split("-");
+
+    const cellDate = new Date(
       Number(dateParts[2]),
       Number(dateParts[1]) - 1,
       Number(dateParts[0])
     );
+
     if (filterLocalDateAtMidnight.getTime() === cellDate.getTime()) {
       return 0;
     }
+
     if (cellDate < filterLocalDateAtMidnight) {
       return -1;
     }
+
     if (cellDate > filterLocalDateAtMidnight) {
       return 1;
     }
+
+    return 0;
   },
+
   browserDatePicker: true,
 };
 
 function Content1() {
-  const [gridApi, setGridApi] = useState();
+  const [gridApi, setGridApi] = useState(null);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  // const rowData = reportsData;
   const rowData = [
     {
       jobid: 12134,
@@ -91,35 +95,48 @@ function Content1() {
     },
   ];
 
-  const defColumnDefs = { flex: 1 };
+  const defColumnDefs = {
+    flex: 1,
+  };
 
   const onGridReady = (params) => {
     setGridApi(params);
   };
+
   const getFilterType = () => {
-    if (startDate !== "" && endDate !== "") return "inRange";
-    else if (startDate !== "") return "greaterThan";
-    else if (endDate !== "") return "lessThan";
-  };
-  useEffect(() => {
-    if (gridApi) {
-      if (startDate !== "" && endDate !== "" && startDate > endDate) {
-        // alert("Start Date should be before End Date")
-        // setEndDate('')
-      } else {
-        var dateFilterComponent = gridApi.api.getFilterInstance("date");
-        dateFilterComponent.setModel({
-          type: getFilterType(),
-          dateFrom: startDate ? startDate : endDate,
-          dateTo: endDate,
-        });
-        gridApi.api.onFilterChanged();
-      }
+    if (startDate !== "" && endDate !== "") {
+      return "inRange";
+    } else if (startDate !== "") {
+      return "greaterThan";
+    } else if (endDate !== "") {
+      return "lessThan";
     }
-  }, [startDate, endDate]);
 
-  //csv
+    return null;
+  };
 
+  useEffect(() => {
+    if (!gridApi) return;
+
+    if (startDate !== "" && endDate !== "" && startDate > endDate) {
+      return;
+    }
+
+    const dateFilterComponent =
+      gridApi.api.getFilterInstance("date");
+
+    if (dateFilterComponent) {
+      dateFilterComponent.setModel({
+        type: getFilterType(),
+        dateFrom: startDate || endDate,
+        dateTo: endDate,
+      });
+
+      gridApi.api.onFilterChanged();
+    }
+  }, [startDate, endDate, gridApi]);
+
+  // CSV Data
   const Jobs = [
     {
       JobId: 12134,
@@ -177,12 +194,15 @@ function Content1() {
     data: Jobs,
     filename: "csvfile.csv",
   };
+
   return (
     <Container>
       <div className="App">
         <Row>
           <Col>
-            <span className={`${classes.span1} float-start`}>Reports</span>
+            <span className={`${classes.span1} float-start`}>
+              Reports
+            </span>
           </Col>
         </Row>
 
@@ -200,7 +220,10 @@ function Content1() {
                 onChange={(e) => setStartDate(e.target.value)}
               />
 
-              <span className={`${classes.fstyle} float-start`}>End Date </span>
+              <span className={`${classes.fstyle} float-start`}>
+                End Date
+              </span>
+
               <input
                 className={`${classes.aligningst} float-start`}
                 type="date"
@@ -208,17 +231,20 @@ function Content1() {
                 onChange={(e) => setEndDate(e.target.value)}
               />
 
-              <Button className={`${classes.btnstyle} bg-primary float-end`}>
+              <Button
+                className={`${classes.btnstyle} bg-primary float-end`}
+              >
                 <CSVLink className={classes.sty11} {...csvLink}>
                   Export to CSV
                 </CSVLink>
               </Button>
             </Col>
           </Row>
+
           <Row>
             <Row className={classes.rowStyle}>
               <Col>
-                <span className={`${classes.span1} float-start `}>
+                <span className={`${classes.span1} float-start`}>
                   Recent Jobs
                 </span>
               </Col>
