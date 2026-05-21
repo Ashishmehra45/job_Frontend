@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   FormGroup,
   FormControl,
@@ -9,14 +9,11 @@ import {
   FormLabel,
 } from "react-bootstrap";
 import classes from "./Content.module.css";
-import { useState, useEffect } from "react";
 import useTable from "../../../../hooks/useTable";
 import TableFooter from "../../../../components/dashboard/Tables/TableFooter";
 import { CSVLink } from "react-csv";
 import axios from "axios";
-// import Config from "../../../../config/Config.json";
-import API_URL from "../../../../config/config"
-// import dateFormat from 'dateformat';
+import API_URL from "../../../../config/config";
 
 function Reports() {
   const [reportsData, setReportsData] = useState([]);
@@ -25,7 +22,9 @@ function Reports() {
   const { slice, range } = useTable(reportsData, page, 5);
 
   const [forminputs, setFormInputs] = useState({});
-  const [filterdates, setFilterDates] = useState({
+
+  // Removed unused filterdates variable
+  const [, setFilterDates] = useState({
     startdate: "",
     enddate: "",
   });
@@ -34,99 +33,105 @@ function Reports() {
 
   useEffect(() => {
     const fetchTd = async () => {
-      const res = await axios.get(`${API_URL}/provider/jobs/`, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
+      try {
+        const res = await axios.get(`${API_URL}/provider/jobs/`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        });
 
-      const updatedList = [...res.data.jobs];
-      // const updatedList = ord.map(item =>
-      //   {
-
-      //       return {...item, startDate:dateFormat(item.startDate,configData.DATE_FORMAT,true)}
-      //       //return{...item,created:new Intl.DateTimeFormat("en-IN","mmmm dd, yyyy" ).format(item.created)}
-      //       // configData.DATE_FORMAT_OBJECT
-      //   })
-      // setData(updatedList);
-      setReportsData(updatedList);
+        const updatedList = [...res.data.jobs];
+        setReportsData(updatedList);
+      } catch (error) {
+        console.log(error);
+      }
     };
+
     fetchTd();
   }, []);
 
-  // useEffect(() => {
-
-  //   const fetchbug = async () => {
-  //   await axios.get("http://localhost:3000/bugs")
-  //       .then(res => {
-  //           const bugs = res.data;
-  //           setJsonBugs(bugs);
-
-  //       });
-  //   };
-  //   fetchbug();
-  // })
   const validateStart = () => {
     let error = "";
+
     if (!forminputs["startdate"] && forminputs["enddate"]) {
       error = "please enter start date";
     }
+
     if (!forminputs["startdate"] && !forminputs["enddate"]) {
       setErrors({});
     }
-    setErrors((values) => ({ ...values, startdate: error }));
+
+    setErrors((values) => ({
+      ...values,
+      startdate: error,
+    }));
   };
 
   const validateEnd = () => {
     let error = "";
+
     if (!forminputs["enddate"] && forminputs["startdate"]) {
       error = "please enter end date";
     }
+
     if (!forminputs["startdate"] && !forminputs["enddate"]) {
       setErrors({});
-    } else if (forminputs["enddate"] && forminputs["startdate"]) {
+    } else if (
+      forminputs["enddate"] &&
+      forminputs["startdate"]
+    ) {
       let startdate = new Date(forminputs["startdate"]);
       let enddate = new Date(forminputs["enddate"]);
+
       if (startdate > enddate) {
         error = "end date should be greater than start date";
       }
     }
-    setErrors((values) => ({ ...values, enddate: error }));
+
+    setErrors((values) => ({
+      ...values,
+      enddate: error,
+    }));
   };
 
   const validate = () => {
     validateStart();
     validateEnd();
+
     if (errors.startdate || errors.enddate) {
       return false;
-    } else {
-      return true;
     }
+
+    return true;
   };
 
   const handleSubmit = () => {
     if (validate()) {
       setFilterDates({ ...forminputs });
+
+      let stdate = new Date(forminputs.startdate);
+      let endate = new Date(forminputs.enddate);
+
+      let newData = reportsData.filter((report) => {
+        let date = new Date(report.startDate);
+
+        return date >= stdate && date <= endate;
+      });
+
+      setReportsData(newData);
     }
-    let stdate = new Date(forminputs.startdate);
-    let endate = new Date(forminputs.enddate);
-    let newData = reportsData.filter((report) => {
-      // console.log(report);
-      let date = new Date(report.startDate);
-      if (date >= stdate && date <= endate) {
-        return report;
-      }
-      // return;
-    });
-    // console.log(newData);
-    setReportsData(newData);
   };
-  // console.log(reportsData);
+
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setFormInputs((values) => ({ ...values, [name]: value }));
+
+    setFormInputs((values) => ({
+      ...values,
+      [name]: value,
+    }));
   };
+
   const Jobs = [...reportsData];
 
   const headers = [
@@ -168,7 +173,7 @@ function Reports() {
         </Row>
 
         <Row className={classes.filters}>
-          <Col className={`${classes.str1} ${classes}`}>
+          <Col className={classes.str1}>
             <FormGroup controlId="reportstartdate">
               <Row>
                 <Col>
@@ -176,6 +181,7 @@ function Reports() {
                     <b>StartDate</b>
                   </FormLabel>
                 </Col>
+
                 <Col className={classes.input}>
                   <FormControl
                     className={classes.str2}
@@ -202,6 +208,7 @@ function Reports() {
                     <b>EndDate</b>
                   </FormLabel>
                 </Col>
+
                 <Col className={classes.input}>
                   <FormControl
                     className={classes.str21}
@@ -219,15 +226,23 @@ function Reports() {
               </Row>
             </FormGroup>
           </Col>
+
           <Col className={classes.actions}>
             <Col className={classes.subm}>
-              <button className={classes.buttonsty} onClick={handleSubmit}>
+              <button
+                className={classes.buttonsty}
+                onClick={handleSubmit}
+              >
                 Submit
               </button>
             </Col>
+
             <Col className={classes.expo}>
               <button className={classes.csvsty}>
-                <CSVLink className={classes.sty11} {...csvLink}>
+                <CSVLink
+                  className={classes.sty11}
+                  {...csvLink}
+                >
                   Export to CSV
                 </CSVLink>
               </button>
@@ -239,15 +254,14 @@ function Reports() {
           <Table striped hover>
             <thead>
               <tr className={classes.tableHeader}>
-                {/* <th>JobId</th>
-                <th>providerId</th> */}
                 <th>Title</th>
-                <th>description</th>
+                <th>Description</th>
                 <th>Category</th>
                 <th>StartDate</th>
                 <th>EndDate</th>
               </tr>
             </thead>
+
             <tbody className={classes.tableBody}>
               {slice.map((contact) => (
                 <tr key={contact._id}>
@@ -261,6 +275,7 @@ function Reports() {
             </tbody>
           </Table>
         </div>
+
         <TableFooter
           range={range}
           slice={slice}
@@ -271,4 +286,5 @@ function Reports() {
     </>
   );
 }
+
 export default Reports;
