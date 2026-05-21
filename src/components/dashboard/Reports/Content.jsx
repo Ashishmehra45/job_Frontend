@@ -89,14 +89,11 @@ function Reports() {
     }
     let stdate = new Date(forminputs.startdate);
     let endate = new Date(forminputs.enddate);
-    let newData = reportsData.filter((report) => {
-      // console.log(report);
-      let date = new Date(report.startDate);
-      if (date >= stdate && date <= endate) {
-        return report;
-      }
-      // return;
-    });
+   let newData = reportsData.filter((report) => {
+  let date = new Date(report.startDate);
+
+  return date >= stdate && date <= endate;
+});
     // console.log(newData);
     setReportsData(newData);
   };
