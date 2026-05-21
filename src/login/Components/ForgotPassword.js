@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from "react";
 import Header from "./Header";
-import Config from "../../config/Config.json";
+// import Config from "../../config/Config.json";
 import classes from "./Register.module.css";
 
 // import "./src/App.css";
