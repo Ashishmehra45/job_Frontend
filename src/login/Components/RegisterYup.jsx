@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import Header from "./Header";
 import classes from "./Register.module.css";
+import API_URL from "../../config/config"
 
 import {
   NumberInput,
@@ -44,7 +45,7 @@ const Register = (props) => {
     setShowSpinner(true);
 
     axios
-      .post("http://localhost:8000/auth/register", values)
+      .post(`${API_URL}/auth/register`, values)
       .then((res) => {
         setShowSpinner(false);
 
