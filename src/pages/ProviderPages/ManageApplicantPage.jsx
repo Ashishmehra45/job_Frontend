@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import ManageJobApplicants from "../../Job Provider/Components/Applicants/ManageJobApplicants";
 
-// import Config from "../../config/Config.json";
+import Config from "../../config/Config.json";
 
 export default function ApplicantsPage() {
   useEffect(() => {

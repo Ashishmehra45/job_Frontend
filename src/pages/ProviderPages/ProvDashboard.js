@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import ProviderCards from "../../Job Provider/Components/Counters/ProviderCards";
 
 import Table1 from "../../Job Provider/Components/Table/dashboardTable.js";
-// import Config from "../../config/Config.json";
+import Config from "../../config/Config.json";
 import axios from "axios";
 import SpinnerComponent from "../../components/UI/SpinnerComponent";
 import API_URL from "../../config/config" 

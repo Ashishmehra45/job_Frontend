@@ -7,7 +7,7 @@ import SpinnerComponent from "../../components/UI/SpinnerComponent";
 import ManageTab from "../../Job Provider/Components/ManageJobs/ManageTab";
 import ReactModal from "../../Job Provider/Components/ManageJobs/ReactModal";
 import AddJob from "../../Job Provider/Components/AddJob/AddJob";
-// import Config from "../../config/Config.json";
+import Config from "../../config/Config.json";
 import API_URL from "../../config/config"
 
 let jobId;
