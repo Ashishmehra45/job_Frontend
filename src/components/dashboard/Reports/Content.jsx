@@ -83,22 +83,29 @@ function Reports() {
     }
   };
 
- const handleSubmit = () => {
-  if (validate()) {
-    setFilterDates({ ...forminputs });
-  }
-
-  let stdate = new Date(forminputs.startdate);
-  let endate = new Date(forminputs.enddate);
-
-  let newData = reportsData.filter((report) => {
-    let date = new Date(report.startDate);
-
-    return date >= stdate && date <= endate;
-  });
-
-  setReportsData(newData);
-};
+  const handleSubmit = () => {
+    if (validate()) {
+      setFilterDates({ ...forminputs });
+    }
+    let stdate = new Date(forminputs.startdate);
+    let endate = new Date(forminputs.enddate);
+    let newData = reportsData.filter((report) => {
+      // console.log(report);
+      let date = new Date(report.startDate);
+      if (date >= stdate && date <= endate) {
+        return report;
+      }
+      // return;
+    });
+    // console.log(newData);
+    setReportsData(newData);
+  };
+  // console.log(reportsData);
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setFormInputs((values) => ({ ...values, [name]: value }));
+  };
   const Jobs = [...reportsData];
 
   const headers = [
