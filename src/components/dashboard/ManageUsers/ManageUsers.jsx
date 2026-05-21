@@ -4,7 +4,7 @@ import axios from "axios";
 import useTable from "../../../hooks/useTable";
 import TableFooter from "../Tables/TableFooter";
 import SpinnerComponent from "../../UI/SpinnerComponent";
-import Config from "../../../config/Config.json";
+// import Config from "../../../config/Config.json";
 // import data from "../../../store/userData.json";
 
 import classes from "./ManageUsers.module.css";

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import classes from "./ApplicantItem.module.css";
-import Config from "../../../config/Config.json";
+// import Config from "../../../config/Config.json";
 import API_URL from "../../../config/config"
 
 const ApplicantItem = ({ setAction, ...props }) => {

@@ -6,7 +6,7 @@ import SpinnerComponent from "../../../components/UI/SpinnerComponent";
 import "./Data.json";
 import TableFooter from "../Table/TableFooter";
 import useTable from "../Hooks/useTable";
-import Config from "../../../config/Config.json";
+// import Config from "../../../config/Config.json";
 import API_URL from "../../../config/config"
 
 import classes from "./ManageTab.module.css";

@@ -14,7 +14,7 @@ import useTable from "../../../../hooks/useTable";
 import TableFooter from "../../../../components/dashboard/Tables/TableFooter";
 import { CSVLink } from "react-csv";
 import axios from "axios";
-import Config from "../../../../config/Config.json";
+// import Config from "../../../../config/Config.json";
 import API_URL from "../../../../config/config"
 // import dateFormat from 'dateformat';
 

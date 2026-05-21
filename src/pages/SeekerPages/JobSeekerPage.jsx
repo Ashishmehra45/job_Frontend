@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import JobList from "../../JobSeeker/JobList";
-import Config from "../../config/Config.json";
+// import Config from "../../config/Config.json";
 
 const JobSeekerPage = () => {
   useEffect(() => {

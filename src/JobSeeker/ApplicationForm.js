@@ -5,7 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Config from "../config/Config.json";
+// import Config from "../config/Config.json";
 import SpinnerComponent from "../components/UI/SpinnerComponent";
 import API_URL from "../config/config"
 

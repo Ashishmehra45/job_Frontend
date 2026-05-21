@@ -5,7 +5,7 @@ import axios from "axios";
 import Jobitem from "./Job_item";
 import ApplyModal from "./ApplyModal";
 import classes from "./Modalf.module.css";
-import Config from "../config/Config.json";
+// import Config from "../config/Config.json";
 import API_URL from "../config/config"  
 
 let jobsData = [];

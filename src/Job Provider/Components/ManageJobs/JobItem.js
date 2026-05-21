@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import axios from "axios";
 import API_URL from "../../../config/config"  
 
-import Config from "../../../config/Config.json";
+// import Config from "../../../config/Config.json";
 const JobItem = (props) => {
   const editButtonHandler = () => {
     axios

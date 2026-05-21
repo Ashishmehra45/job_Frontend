@@ -9,7 +9,7 @@ import ReactModal from "../../UI/ReactModal";
 import AddJob from "./AddJob/AddJob";
 import SpinnerComponent from "../../UI/SpinnerComponent";
 import classes from "../../../pages/AdminPages/ManageUsersPage.module.css";
-import Config from "../../../config/Config.json";
+// import Config from "../../../config/Config.json";
 import API_URL from "../../../config/config"
 
 let jobId;

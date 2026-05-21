@@ -1,7 +1,7 @@
 import axios from "axios";
 import classes from "./ManageUserItem.module.css";
 import dateFormatter from "../../../util/dateFormatter";
-import Config from "../../../config/Config.json";
+// import Config from "../../../config/Config.json";
 import API_URL from "../../../config/config"
 
 const ManageUserItem = (props) => {
