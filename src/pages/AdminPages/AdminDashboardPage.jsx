@@ -4,7 +4,7 @@ import AdminCards from "../../components/dashboard/Counters/AdminCards";
 import JobsTable from "../../components/dashboard/Tables/JobsTable";
 import UserTable from "../../components/dashboard/Tables/UserTable";
 import axios from "axios";
-// import Config from "../../config/Config.json";
+import Config from "../../config/Config.json";
 import SpinnerComponent from "../../components/UI/SpinnerComponent";
 import API_URL from "../../config/config"
 

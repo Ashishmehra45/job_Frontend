@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 import Header from "./Header";
 import classes from "./Register.module.css";
-// import Config from "../../config/Config.json";
+import Config from "../../config/Config.json";
 import API_URL from "../../config/config"
 
 const Login = () => {

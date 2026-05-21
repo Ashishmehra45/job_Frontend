@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import FormikForm from "../../components/dashboard/ManageUsers/AddUsersFormik/FormikForm";
 import ManageUsers from "../../components/dashboard/ManageUsers/ManageUsers";
-// import Config from "../../config/Config.json";
+import Config from "../../config/Config.json";
 import classes from "./ManageUsersPage.module.css";
 import SpinnerComponent from "../../components/UI/SpinnerComponent";
 import API_URL from "../../config/config"
